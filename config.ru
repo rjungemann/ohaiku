@@ -149,10 +149,14 @@ class Ohaiku
             </div>
             <script>
               $('form').submit(function (e) {
+                $('#haiku').prop('disabled', true);
+                $('form [type=submit]').prop('disabled', true);
                 var data = {
                   haiku: $('#haiku').val()
                 };
                 $.post('/', data, function (data) {
+                  $('#haiku').prop('disabled', false);
+                  $('form [type=submit]').prop('disabled', false);
                   if (data === 'true') {
                     $('.alert-success').show();
                     $('.alert-danger').hide();
