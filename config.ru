@@ -64,6 +64,7 @@ class Ohaiku
     body
   end
 
+  # TODO: Properly handle alternate syllable lists when they're partial.
   def self.dictionary_syllable_count(word)
     match = fetch(word).match(/<pr>(.*?)<\/pr>/) || []
     phonetics = match[1]
@@ -72,7 +73,7 @@ class Ohaiku
       .split(',')
       .map { |n| n.strip }
       .reject { |n| n.match(/^-|-$/) }
-      .map { |n| n.split('-').count }
+      .map { |n| n.split('-').count } || []
   end
 
   def self.computed_syllable_count(word)
